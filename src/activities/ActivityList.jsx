@@ -1,23 +1,9 @@
-import { useAuth } from "../auth/AuthContext"
-import { deleteActivity } from "../api/activities";
+import { useActivity } from "./ActivityContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { useState } from "react";
 
-export default function ActivityList({ activities, syncActivities }) {
-  const { token } = useAuth();
-  const [error, setError] = useState();
-
-  const tryDeleteActivity = async (activity) => {
-    setError(null);
-
-    try {
-      await deleteActivity(activity.id, token);
-      syncActivities();
-    } catch (e) {
-      setError(e.message);
-    }
-  }
+export default function ActivityList() {
+  const { token, activities, listError, tryDeleteActivity } = useActivity();
 
   return (
     <ul>
@@ -36,7 +22,7 @@ export default function ActivityList({ activities, syncActivities }) {
           </li>
         )
       )}
-      {error && <p role="alert">{error}</p>}
+      {listError && <p role="alert">{listError}</p>}
     </ul>
   );
 }

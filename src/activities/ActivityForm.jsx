@@ -1,26 +1,8 @@
-import { useState } from "react";
-import { createActivity } from "../api/activities";
-import { useAuth } from "../auth/AuthContext";
+import { useActivity } from "./ActivityContext";
 
 /** Form for a user to create a new activity with a name and description. */
-export default function ActivityForm({ syncActivities }) {
-  const { token } = useAuth();
-
-  const [error, setError] = useState(null);
-
-  const tryCreateActivity = async (formData) => {
-    setError(null);
-
-    const name = formData.get("name");
-    const description = formData.get("description");
-
-    try {
-      await createActivity(token, { name, description });
-      syncActivities();
-    } catch (e) {
-      setError(e.message);
-    }
-  };
+export default function ActivityForm() {
+  const { formError, tryCreateActivity } = useActivity();
 
   return (
     <>
@@ -36,7 +18,7 @@ export default function ActivityForm({ syncActivities }) {
         </label>
         <button>Add activity</button>
       </form>
-      {error && <p role="alert">{error}</p>}
+      {formError && <p role="alert">{formError}</p>}
     </>
   );
 }
