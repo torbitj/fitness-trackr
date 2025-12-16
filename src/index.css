@@ -37,6 +37,18 @@ a:hover {
   text-decoration: underline;
 }
 
+ul {
+  list-style: none;
+}
+
+li {
+  padding: 0.3em;
+  border: thin solid lightgray;
+  display: grid;
+  grid-template-columns: 2.5fr max-content;
+  column-gap: 2em;
+}
+
 ul,
 ol {
   padding-left: 1rem;
@@ -44,4 +56,13 @@ ol {
 
 p[role="alert"] {
   color: red;
+}
+
+.delete {
+  padding: 0.3em;
+}
+
+li:hover {
+  background-color: rgb(79, 79, 79);
+  color: white;
 }

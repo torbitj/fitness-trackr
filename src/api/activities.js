@@ -35,3 +35,16 @@ export async function createActivity(token, activity) {
     throw Error(result.message);
   }
 }
+
+export const deleteActivity = async (id, token) => {
+  const response = await fetch(API + `/activities/${id}`, {
+    method: 'DELETE',
+    headers: {
+      "Authorization": "Bearer " + token
+    }
+  });
+  if (!response.ok) {
+    const result = await response.json();
+    throw Error(result.message);
+  }
+}
